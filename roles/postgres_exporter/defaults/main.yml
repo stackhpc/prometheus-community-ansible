@@ -1,7 +1,8 @@
 ---
-postgres_exporter_version: 0.19.1
+postgres_exporter_version: 0.20.1
 postgres_exporter_binary_url: "https://github.com/{{ _postgres_exporter_repo }}/releases/download/v{{ postgres_exporter_version }}/\
                            postgres_exporter-{{ postgres_exporter_version }}.{{ ansible_facts['system'] | lower }}-{{ _postgres_exporter_go_ansible_arch }}.tar.gz"
+postgres_exporter_checksum: ""
 postgres_exporter_checksums_url: "https://github.com/{{ _postgres_exporter_repo }}/releases/download/v{{ postgres_exporter_version }}/sha256sums.txt"
 
 postgres_exporter_web_listen_address: "0.0.0.0:9187"
@@ -32,3 +33,6 @@ postgres_exporter_system_user: "{{ postgres_exporter_system_group }}"
 
 # Local path to stash the archive and its extraction
 postgres_exporter_local_cache_path: "/tmp/postgres_exporter-{{ ansible_facts['system'] | lower }}-{{ _postgres_exporter_go_ansible_arch }}/{{ postgres_exporter_version }}"
+
+# Another host than localhost only works in single-host plays
+postgres_exporter_download_host: localhost

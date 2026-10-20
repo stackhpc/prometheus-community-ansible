@@ -84,6 +84,7 @@
       retries: 5
       delay: 2
       # run_once: true  # <-- this can't be set due to multi-arch support
+      throttle: 1  # Avoid download storm when installing a 100x node cluster.
       check_mode: false
 
     - name: "Verify checksum of {{ __common_binary_basename }}"

@@ -1,7 +1,8 @@
 ---
-pushgateway_version: 1.11.2
+pushgateway_version: 1.11.3
 pushgateway_binary_url: "https://github.com/{{ _pushgateway_repo }}/releases/download/v{{ pushgateway_version }}/\
                          pushgateway-{{ pushgateway_version }}.{{ ansible_facts['system'] | lower }}-{{ _pushgateway_go_ansible_arch }}.tar.gz"
+pushgateway_checksum: ""
 pushgateway_checksums_url: "https://github.com/{{ _pushgateway_repo }}/releases/download/v{{ pushgateway_version }}/sha256sums.txt"
 
 pushgateway_web_listen_address: "0.0.0.0:9091"
@@ -28,3 +29,6 @@ pushgateway_config_dir: "/etc/pushgateway"
 
 # Local path to stash the archive and its extraction
 pushgateway_local_cache_path: "/tmp/pushgateway-{{ ansible_facts['system'] | lower }}-{{ _pushgateway_go_ansible_arch }}/{{ pushgateway_version }}"
+
+# Another host than localhost only works in single-host plays
+pushgateway_download_host: localhost

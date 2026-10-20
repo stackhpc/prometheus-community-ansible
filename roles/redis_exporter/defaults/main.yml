@@ -1,7 +1,8 @@
 ---
-redis_exporter_version: 1.82.0
+redis_exporter_version: 1.86.0
 redis_exporter_binary_url: "https://github.com/{{ _redis_exporter_repo }}/releases/download/v{{ redis_exporter_version }}/\
                            redis_exporter-v{{ redis_exporter_version }}.{{ ansible_facts['system'] | lower }}-{{ _redis_exporter_go_ansible_arch }}.tar.gz"
+redis_exporter_checksum: ""
 redis_exporter_checksums_url: "https://github.com/{{ _redis_exporter_repo }}/releases/download/v{{ redis_exporter_version }}/sha256sums.txt"
 
 # https://github.com/oliver006/redis_exporter?tab=readme-ov-file#command-line-flags
@@ -51,3 +52,6 @@ redis_exporter_config_dir: "/etc/redis_exporter"
 
 # Local path to stash the archive and its extraction
 redis_exporter_local_cache_path: "/tmp/redis_exporter-{{ ansible_facts['system'] | lower }}-{{ _redis_exporter_go_ansible_arch }}/{{ redis_exporter_version }}"
+
+# Another host than localhost only works in single-host plays
+redis_exporter_download_host: localhost

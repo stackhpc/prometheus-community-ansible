@@ -1,7 +1,8 @@
 ---
-mongodb_exporter_version: 0.49.0
+mongodb_exporter_version: 0.51.0
 mongodb_exporter_binary_url: "https://github.com/{{ _mongodb_exporter_repo }}/releases/download/v{{ mongodb_exporter_version }}/\
                           mongodb_exporter-{{ mongodb_exporter_version }}.{{ ansible_facts['system'] | lower }}-{{ _mongodb_exporter_go_ansible_arch }}.tar.gz"
+mongodb_exporter_checksum: ""
 mongodb_exporter_checksums_url: "https://github.com/{{ _mongodb_exporter_repo }}/releases/download/v{{ mongodb_exporter_version }}/\
                           mongodb_exporter_{{ mongodb_exporter_version }}_checksums.txt"
 
@@ -35,3 +36,6 @@ mongodb_exporter_config_dir: "/etc/mongodb_exporter"
 
 # Local path to stash the archive and its extraction
 mongodb_exporter_local_cache_path: "/tmp/mongodb_exporter-{{ ansible_facts['system'] | lower }}-{{ _mongodb_exporter_go_ansible_arch }}/{{ mongodb_exporter_version }}"
+
+# Another host than localhost only works in single-host plays
+mongodb_exporter_download_host: localhost

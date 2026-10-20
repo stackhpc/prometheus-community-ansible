@@ -11,16 +11,20 @@
   ansible.builtin.include_role:
     name: prometheus.prometheus._common
     tasks_from: install.yml
+  when: not (prometheus_skip_install | default(False))
   vars:
     _common_local_cache_path: "{{ prometheus_local_cache_path }}"
     _common_binaries: "{{ _prometheus_binaries }}"
     _common_binary_install_dir: "{{ prometheus_binary_install_dir }}"
     _common_binary_url: "{{ prometheus_binary_url }}"
+    _common_download_host: "{{ prometheus_download_host }}"
+    _common_checksum: "{{ prometheus_checksum }}"
     _common_checksums_url: "{{ prometheus_checksums_url }}"
     _common_system_group: "{{ prometheus_system_group }}"
     _common_system_user: "{{ prometheus_system_user }}"
     _common_config_dir: "{{ prometheus_config_dir }}"
     _common_binary_unarchive_opts: ['--strip-components=1']
+    _common_skip_configure: "{{ prometheus_skip_configure }}"
   tags:
     - prometheus_install
 
@@ -37,6 +41,7 @@
 - name: Configure
   ansible.builtin.include_tasks:
     file: configure.yml
+  when: not prometheus_skip_configure
   tags:
     - prometheus_configure
 
@@ -49,6 +54,7 @@
     enabled: true
   when:
     - not ansible_check_mode
+    - not prometheus_skip_configure
   tags:
     - prometheus_run
 
@@ -58,3 +64,4 @@
   until: "__service_status.ansible_facts.services['prometheus.service'].state == 'running'"
   retries: 10
   delay: 5
+  when: not prometheus_skip_configure
